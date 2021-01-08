@@ -4,6 +4,7 @@ import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import org.junit.Test;
+import utils.RabbitmqUtils;
 
 import javax.xml.soap.SOAPConnectionFactory;
 import java.io.IOException;
@@ -15,7 +16,7 @@ public class Provider {
     @Test
     public void testSendMesage() throws IOException, TimeoutException {
 
-        //创建连接mq的连接工厂对象
+        /*//创建连接mq的连接工厂对象
         ConnectionFactory connectionFactory=new ConnectionFactory();
         //设置连接rabbitmq主机
         connectionFactory.setHost("47.116.129.207");
@@ -28,7 +29,10 @@ public class Provider {
         connectionFactory.setPassword("123");
 
         //获取连接对象
-        Connection connection=connectionFactory.newConnection();
+        Connection connection=connectionFactory.newConnection();*/
+
+        //通过工具类获取连接对象
+        Connection connection=RabbitmqUtils.getConnection();
 
         //获取连接中通道
         Channel channel=connection.createChannel();
@@ -50,7 +54,6 @@ public class Provider {
         * */
         channel.basicPublish("","hello",null,"hello rabbitmq".getBytes());
 
-        channel.close();;
-        connection.close();;
+        RabbitmqUtils.closeConnectAndChannel(channel,connection);
     }
 }
