@@ -14,6 +14,12 @@ public class TestRabbitMq {
     @Autowired
     private RabbitTemplate rabbitTemplate;
 
+    //topic路由模式
+    @Test
+    public void testTopic(){
+        rabbitTemplate.convertAndSend("topics","order","发送topic类型消息");
+    }
+
     //route路由模式
     @Test
     public void testRoute(){

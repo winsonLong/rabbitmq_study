@@ -6,9 +6,9 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="rabbitmq_springboot" />
         <module name="order-interface" />
         <module name="rabbitmq_day01" />
+        <module name="rabbitmq_springboot" />
       </profile>
     </annotationProcessing>
   </component>
