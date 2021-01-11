@@ -10,9 +10,9 @@ import java.util.concurrent.TimeoutException;
 
 public class RabbitmqUtils {
 
-    public static ConnectionFactory connectionFactory=new ConnectionFactory();
+    public static ConnectionFactory connectionFactory = new ConnectionFactory();
 
-    static{
+    static {
         //重量级资源
         connectionFactory.setHost("47.116.129.207");
         connectionFactory.setPort(5672);
@@ -23,22 +23,22 @@ public class RabbitmqUtils {
 
 
     //定义提供创建连接对象的方法
-    public static Connection getConnection(){
+    public static Connection getConnection() {
 
         try {
 
-           return connectionFactory.newConnection();
+            return connectionFactory.newConnection();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (TimeoutException e) {
             e.printStackTrace();
         }
-            return null;
+        return null;
     }
 
-    public static void closeConnectAndChannel(Channel channel, Connection conn){
+    public static void closeConnectAndChannel(Channel channel, Connection conn) {
         try {
-            if(channel!=null) {
+            if (channel != null) {
                 channel.close();
             }
             if (conn != null) {

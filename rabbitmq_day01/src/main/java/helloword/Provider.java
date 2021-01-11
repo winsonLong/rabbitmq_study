@@ -3,6 +3,7 @@ package helloword;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
+import com.rabbitmq.client.MessageProperties;
 import org.junit.Test;
 import utils.RabbitmqUtils;
 
@@ -32,28 +33,47 @@ public class Provider {
         Connection connection=connectionFactory.newConnection();*/
 
         //通过工具类获取连接对象
-        Connection connection=RabbitmqUtils.getConnection();
+        Connection connection = RabbitmqUtils.getConnection();
 
         //获取连接中通道
-        Channel channel=connection.createChannel();
+        Channel channel = connection.createChannel();
 
         //通道绑定对应消息队列
         //参数1：队列名称，如果队列不存在自动创建
         //参数2：用来定义队列特性是否要持久化 true持久化 false不持久化
         //参数3：exclusive 是否独占队列  true 独占
-        //参数4：autoDelete是否在消费完成后自动删除队列 ，true自动删除
+        //参数4：autoDelete是否在消费完成后自动删除队列 ，true自动删除(消费者不在监听生产者的时候才会自动删除)
         //参数5：额外附加参数
-        channel.queueDeclare("hello",false,false,false,null);
+        channel.queueDeclare("hello", false, false, false, null);
 
         //发布消息
         /*
-        * 参数1：交换机名称
-        * 参数2：队列名称
-        * 参数3：传递消息的额外设置
-        * 参数4：消息的具体内容
-        * */
-        channel.basicPublish("","hello",null,"hello rabbitmq".getBytes());
+         * 参数1：交换机名称
+         * 参数2：队列名称
+         * 参数3：传递消息的额外设置
+         * 参数4：消息的具体内容
+         * */
+        channel.basicPublish("", "hello", MessageProperties.PERSISTENT_TEXT_PLAIN, "hello rabbitmq".getBytes());
 
-        RabbitmqUtils.closeConnectAndChannel(channel,connection);
+        RabbitmqUtils.closeConnectAndChannel(channel, connection);
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
